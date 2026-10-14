@@ -3,18 +3,28 @@ import {
   Get,
   Header,
   HttpCode,
-//   HttpRedirectResponse,
   Param,
   Post,
   Query,
-  Redirect,
-//   Req,
-//   Res,
+  Req,
+  Res,
 } from '@nestjs/common';
-// import type { Request } from 'express';
+
+import type { Response, Request } from 'express';
 
 @Controller('api/users')
 export class UserController {
+  @Get('/set-cookie')
+  setCookie(@Query('name') name: string, @Res() response: Response) {
+    response.cookie('name', name);
+    response.status(200).send(`Cookie 'name' has been set to '${name}'`);
+  }
+
+  @Get('/get-cookie')
+  getCookie(@Req() request: Request) {
+    return request.cookies['name'] || 'Cookie not found';
+  }
+
   @Get('/sample-response')
   @Header('Content-Type', 'application/json')
   @HttpCode(200)
@@ -24,15 +34,6 @@ export class UserController {
     };
   }
 
-//   @Get('/redirect')
-//   @Redirect()
-//     redirect(): HttpRedirectResponse {
-//         return {
-//             url: "/api/users/sample-response",
-//             statusCode: 301
-//         }
-//     }
-
   @Get('/hello')
   async sayHello(
     @Query('first_name') firstName: string,
@@ -40,10 +41,6 @@ export class UserController {
   ): Promise<string> {
     return `Hello, ${firstName} ${lastName}!`;
   }
-  //   @Get('/:id')
-  //   getById(@Req() request: Request): string {
-  //     return `User ID: ${request.params.id}`;
-  //   }
 
   @Get('/:id')
   async getById(@Param('id') id: string): Promise<string> {
