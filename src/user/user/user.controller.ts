@@ -34,10 +34,10 @@ export class UserController {
 //     }
 
   @Get('/hello')
-  sayHello(
+  async sayHello(
     @Query('first_name') firstName: string,
     @Query('last_name') lastName: string,
-  ): string {
+  ): Promise<string> {
     return `Hello, ${firstName} ${lastName}!`;
   }
   //   @Get('/:id')
@@ -46,17 +46,17 @@ export class UserController {
   //   }
 
   @Get('/:id')
-  getById(@Param('id') id: string): string {
+  async getById(@Param('id') id: string): Promise<string> {
     return `User ID: ${id}`;
   }
 
   @Post()
-  post(): string {
+  async post(): Promise<string> {
     return 'POST';
   }
 
   @Get('/sample')
-  getSample(): string {
+  async getSample(): Promise<string> {
     return 'Hello Nest JS';
   }
 }
