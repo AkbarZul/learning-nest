@@ -3,6 +3,7 @@ import {
   Get,
   Header,
   HttpCode,
+  Inject,
   Param,
   Post,
   Query,
@@ -22,6 +23,7 @@ export class UserController {
     private service: UserService,
     private connection: Connection,
     private mailService: MailService,
+    @Inject('EmailService') private emailService: MailService,
     private userRepository: UserRepository,
   ) {}
 
@@ -29,6 +31,7 @@ export class UserController {
   async getConnection(): Promise<string> {
     this.userRepository.save();
     this.mailService.send();
+    this.emailService.send();
     return this.connection.getName();
   }
 

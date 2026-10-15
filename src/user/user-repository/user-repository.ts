@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { Connection } from '../connection/connection.js';
 
 export class UserRepository {
