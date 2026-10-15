@@ -11,6 +11,7 @@ import {
   createuserrepository,
   UserRepository,
 } from './user-repository/user-repository.js';
+import { MemberService } from './member/member.service.js';
 
 @Module({
   controllers: [UserController],
@@ -34,6 +35,7 @@ import {
       useFactory: createuserrepository,
       inject: [Connection],
     },
+    MemberService,
   ],
 })
 export class UserModule {}
