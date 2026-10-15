@@ -31,7 +31,6 @@ export class UserController {
 
   @Get('/connection')
   async getConnection(): Promise<string> {
-    this.userRepository.save();
     this.mailService.send();
     this.emailService.send();
 

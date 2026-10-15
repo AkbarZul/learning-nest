@@ -8,10 +8,7 @@ import {
   MySQLConnection,
 } from './connection/connection.js';
 import { mailService, MailService } from './mail/mail.service.js';
-import {
-  createuserrepository,
-  UserRepository,
-} from './user-repository/user-repository.js';
+import { UserRepository } from './user-repository/user-repository.js';
 import { MemberService } from './member/member.service.js';
 import { ConfigService } from '@nestjs/config';
 
@@ -32,13 +29,9 @@ import { ConfigService } from '@nestjs/config';
       provide: 'EmailService',
       useExisting: MailService,
     },
-    {
-      provide: UserRepository,
-      useFactory: createuserrepository,
-      inject: [Connection],
-    },
+    UserRepository,
     MemberService,
   ],
-  exports: [UserService]
+  exports: [UserService],
 })
 export class UserModule {}
